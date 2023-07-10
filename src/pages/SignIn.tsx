@@ -1,14 +1,15 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
+import getToken from '../services/getToken'
 
 function SignIn() {
     interface dataFormat {
-        username: string
+        email: string
         password: string
         rememberMe: boolean
     }
 
     const [inputData, setInputData] = useState<dataFormat>({
-        username: '',
+        email: '',
         password: '',
         rememberMe: false,
     })
@@ -26,7 +27,7 @@ function SignIn() {
 
     const handleCheck = () => {
         const rememberMe = checkbox.current?.checked ?? false
-        setInputData({ ...inputData, rememberMe: rememberMe})
+        setInputData({ ...inputData, rememberMe: rememberMe })
     }
 
     useEffect(() => {
@@ -35,6 +36,8 @@ function SignIn() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
+        const myToken = getToken(inputData.email, inputData.password)
+        console.log(myToken)
     }
 
     return (
@@ -48,7 +51,7 @@ function SignIn() {
                         <input
                             type="text"
                             id="username"
-                            onInput={(e) => handleInput(e, 'username')}
+                            onInput={(e) => handleInput(e, 'email')}
                         />
                     </div>
                     <div className="input-wrapper">
@@ -70,8 +73,11 @@ function SignIn() {
                     </div>
                     {/* PLACEHOLDER DUE TO STATIC SITE */}
                     <button type="submit" className="sign-in-button">
-                        Sign In
+                        {/* {isLoading ? 'Authenticating...' : 'Sign in'} */}
+                        Sign in
                     </button>
+
+                    {/* {isError && <div>Error occurred.</div>} */}
                     {/* SHOULD BE THE BUTTON BELOW */}
                     {/* <button class="sign-in-button">Sign In</button> */}
                     {/*  */}
