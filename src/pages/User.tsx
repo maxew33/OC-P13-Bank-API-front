@@ -1,11 +1,18 @@
+import { useSelector } from "react-redux"
+import { RootState } from "../utils/store"
+import UserProfile from "../types/userProfile"
+
 export default function User() {
+
+    const userName = useSelector((state: RootState) => state.getProfile) as UserProfile
+    
     return (
         <main className="main bg-dark">
             <div className="header">
                 <h1>
                     Welcome back
                     <br />
-                    Tony Jarvis!
+                    {`${userName.data?.firstName} ${userName.data?.lastName}`}
                 </h1>
                 <button className="edit-button">Edit Name</button>
             </div>
