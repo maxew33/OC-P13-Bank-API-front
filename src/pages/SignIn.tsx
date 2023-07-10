@@ -1,5 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import getToken from '../services/getToken'
+import { useSelector } from 'react-redux'
+import { RootState } from '../utils/store'
+import { useNavigate } from 'react-router-dom'
+// import getToken from '../services/testGetToken'
+
 
 function SignIn() {
     interface dataFormat {
@@ -30,9 +35,16 @@ function SignIn() {
         setInputData({ ...inputData, rememberMe: rememberMe })
     }
 
+    const test = useSelector((state: RootState) => state.logged)
+    const testUserInfos = useSelector((state: RootState) => state.getProfile)
+    console.log(test, testUserInfos)
+    const navigate = useNavigate()
+
     useEffect(() => {
         console.log(inputData)
-    }, [inputData])
+
+        test && navigate('/user')
+    }, [inputData, navigate, test])
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()

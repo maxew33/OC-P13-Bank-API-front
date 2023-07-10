@@ -17,7 +17,9 @@ export default async function getToken(email: string, password: string) {
         .then((response) => {
             const { token } = response.body
             //où mettre le token ?
-            getProfile(token)
+            // local storage / store / cookie
+            localStorage.setItem("token", token)
+            getProfile()
         })
         .catch(() => {
             console.error('Error in API Token')

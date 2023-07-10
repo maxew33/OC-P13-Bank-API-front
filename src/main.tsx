@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 // REDUX
 import { Provider } from 'react-redux'
-import { store } from './utils/store.ts'
+import store from './utils/store.ts'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>

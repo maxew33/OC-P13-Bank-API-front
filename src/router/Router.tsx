@@ -18,7 +18,7 @@ export default function Router() {
             element: <SignIn />,
         },
         {
-            path: '/user/:id',
+            path: '/user',
             element: <User />,
         },
         {
