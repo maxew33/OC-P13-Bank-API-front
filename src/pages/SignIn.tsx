@@ -35,21 +35,17 @@ function SignIn() {
         setInputData({ ...inputData, rememberMe: rememberMe })
     }
 
-    const test = useSelector((state: RootState) => state.logged)
-    const testUserInfos = useSelector((state: RootState) => state.getProfile)
-    console.log(test, testUserInfos)
+    const isLogged = useSelector((state: RootState) => state.logged)
+
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(inputData)
-
-        test && navigate('/user')
-    }, [inputData, navigate, test])
+        isLogged && navigate('/user')
+    }, [navigate, isLogged])
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
-        const myToken = getToken(inputData.email, inputData.password)
-        console.log(myToken)
+        getToken(inputData.email, inputData.password)
     }
 
     return (
@@ -83,16 +79,10 @@ function SignIn() {
                         />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    {/* PLACEHOLDER DUE TO STATIC SITE */}
+                    
                     <button type="submit" className="sign-in-button">
-                        {/* {isLoading ? 'Authenticating...' : 'Sign in'} */}
                         Sign in
                     </button>
-
-                    {/* {isError && <div>Error occurred.</div>} */}
-                    {/* SHOULD BE THE BUTTON BELOW */}
-                    {/* <button class="sign-in-button">Sign In</button> */}
-                    {/*  */}
                 </form>
             </section>
         </main>

@@ -1,4 +1,5 @@
-import getProfile from "./getProfile"
+import { userIsLogged } from '../reducers/loggedReducer'
+import store from "../utils/store"
 
 export default async function getToken(email: string, password: string) {
     const requestOptions = {
@@ -19,7 +20,9 @@ export default async function getToken(email: string, password: string) {
             //où mettre le token ?
             // local storage / store / cookie
             localStorage.setItem("token", token)
-            getProfile()
+            
+            // the user is looged
+            store.dispatch(userIsLogged())
         })
         .catch(() => {
             console.error('Error in API Token')
