@@ -43,6 +43,7 @@ body{
     justify-content: space-between;
     align-items: center;
     padding: 5px 20px;
+    font-size: 1.25rem;
 }
 
 .main-nav a {
@@ -71,6 +72,10 @@ body{
 .main-nav-logo-image {
     max-width: 100%;
     width: 200px;
+}
+
+.main-nav-icon{
+    margin: 0 .75rem 0 2rem;
 }
 
 .hero {
@@ -254,17 +259,57 @@ body{
     flex: 1;
 }
 
-.edit-button {
+
+
+.edit-name-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-name-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: .25rem auto;
+}
+
+.edit-button{
+    width: 8rem;
+    height: 2rem;
+    display: grid;
+    place-content: center;
+    font-size: 1rem;
+    background: white;
+    color: #00bc77;
     border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
-    font-weight: bold;
-    padding: 10px;
+}
+
+.input-field{
+    width: 12rem;
+    height: 3rem;
+    padding-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.header-txt{
+    margin: 0 .5rem;
+}
+
+button{
+    cursor: pointer;
 }
 
 .header {
     color: #fff;
     margin-bottom: 2rem;
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
 }
 
 .transaction-button {
