@@ -1,5 +1,5 @@
-import { userIsLogged } from '../reducers/loggedReducer'
-import { getUserProfileInfos } from '../reducers/profileReducer'
+
+import { getUserProfileInfos } from '../reducers/userProfileReducer'
 import store from '../utils/store'
 
 export default async function getProfile() {
@@ -18,9 +18,6 @@ export default async function getProfile() {
             console.log(response.body)
             // get user infos
             store.dispatch(getUserProfileInfos(response.body))
-
-            // the user is looged
-            store.dispatch(userIsLogged())
 
         })
         .catch(() => {

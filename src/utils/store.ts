@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import loggedReducer from '../reducers/loggedReducer'
-import profileReducer from '../reducers/profileReducer'
+import userIsLogged from '../reducers/loggedReducer'
+import userProfileReducer from '../reducers/userProfileReducer'
 
 const store = configureStore({
     reducer: {
-        logged: loggedReducer,
-        getProfile: profileReducer
+        logged: userIsLogged,
+        userProfile: userProfileReducer,
     },
     devTools: true,
 })
