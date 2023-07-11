@@ -3,8 +3,6 @@ import getToken from '../services/getToken'
 import { useSelector } from 'react-redux'
 import { RootState } from '../utils/store'
 import { useNavigate } from 'react-router-dom'
-// import getToken from '../services/testGetToken'
-
 
 function SignIn() {
     interface dataFormat {
@@ -30,12 +28,20 @@ function SignIn() {
 
     const checkbox = useRef<HTMLInputElement>(null)
 
+    const inputName = useRef<HTMLInputElement>(null)
+
+    const inputPassword = useRef<HTMLInputElement>(null)
+
     const handleCheck = () => {
         const rememberMe = checkbox.current?.checked ?? false
         setInputData({ ...inputData, rememberMe: rememberMe })
     }
 
     const isLogged = useSelector((state: RootState) => state.logged)
+
+    const tokenError = useSelector((state: RootState) => state.error.tokenError)
+
+    const profileError = useSelector((state: RootState) => state.error.profileError)
 
     const navigate = useNavigate()
 
@@ -46,6 +52,17 @@ function SignIn() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
         getToken(inputData.email, inputData.password)
+
+        //empty input fields
+
+        inputName.current && (inputName.current.value = '')
+        inputPassword.current && (inputPassword.current.value = '')
+
+        setInputData({
+            email: '',
+            password: '',
+            rememberMe: false,
+        })
     }
 
     return (
@@ -60,6 +77,8 @@ function SignIn() {
                             type="text"
                             id="username"
                             onInput={(e) => handleInput(e, 'email')}
+                            ref={inputName}
+                            required
                         />
                     </div>
                     <div className="input-wrapper">
@@ -68,6 +87,8 @@ function SignIn() {
                             type="password"
                             id="password"
                             onInput={(e) => handleInput(e, 'password')}
+                            ref={inputPassword}
+                            required
                         />
                     </div>
                     <div className="input-remember">
@@ -79,12 +100,14 @@ function SignIn() {
                         />
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
-                    
+
                     <button type="submit" className="sign-in-button">
                         Sign in
                     </button>
                 </form>
             </section>
+            {tokenError && <p className='error'>An error occurs, please refill the fields.</p>}
+            {profileError && <p className='error'>We are sorry, your profile is unreachable.</p>}
         </main>
     )
 }

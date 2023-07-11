@@ -7,6 +7,7 @@ import {
     changeUserFirstName,
     changeUserLastName,
 } from '../reducers/userProfileReducer'
+import { useNavigate } from 'react-router-dom'
 
 export default function User() {
     interface userChangeName {
@@ -23,9 +24,17 @@ export default function User() {
         (state: RootState) => state.userProfile
     ) as UserProfile
 
+    const navigate = useNavigate()
+    
+    const profileError = useSelector((state: RootState) => state.error.profileError)
+
     useEffect(() => {
         getProfile()
     }, [])
+
+    useEffect(() => {
+        profileError && navigate('/sign-in')
+    }, [navigate, profileError])
 
     const dispatch = useDispatch()
 

@@ -1,3 +1,4 @@
+import { tokenError } from '../reducers/errorReducer'
 import { userIsLogged } from '../reducers/loggedReducer'
 import store from "../utils/store"
 
@@ -17,15 +18,18 @@ export default async function getToken(email: string, password: string) {
         .then((res) => res.json())
         .then((response) => {
             const { token } = response.body
-            //où mettre le token ?
-            // local storage / store / cookie
             localStorage.setItem("token", token)
             
             // the user is looged
             store.dispatch(userIsLogged())
+
+            // set no token error 
+            store.getState().error.tokenError && store.dispatch(tokenError())  
         })
         .catch(() => {
             console.error('Error in API Token')
-            //renvoyer un statut d'erreur dans le store
+
+            //  set token error
+            !store.getState().error.tokenError && store.dispatch(tokenError())                
         })
 }

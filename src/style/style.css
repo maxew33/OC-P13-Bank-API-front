@@ -337,3 +337,33 @@ button{
         width: 200px;
     }
 }
+
+.error{
+    color: crimson;
+    background: #ffffff;
+    display: grid;
+    place-content: center;
+    width: 300px;
+    margin: 5rem auto;
+    height: 3rem;
+}
+
+.error-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.error-page .error-msg{
+    font-size: 7rem;
+    color: crimson;
+}
+
+.error-page .link{
+    text-decoration: none;
+    color: #e2e2e2;
+    text-transform: capitalize;
+    font-size: 1rem;
+}
