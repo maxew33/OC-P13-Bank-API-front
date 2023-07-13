@@ -8,16 +8,20 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../utils/store'
-import { userIsLogged } from '../reducers/loggedReducer'
+import { userHadToken, userIsLogged } from '../reducers/loggedReducer'
 
 function Header() {
-    const logged = useSelector((state: RootState) => state.logged)
+    const logged = useSelector((state: RootState) => state.logged.isLogged)
+    const hadToken = useSelector((state: RootState) => state.logged.hadToken)
     const userName = useSelector((state: RootState) => state.userProfile)
     const dispatch = useDispatch()
 
     const handleClick = () => {
         logged && dispatch(userIsLogged())
+        hadToken && dispatch(userHadToken())
     }
+
+    console.log(logged)
 
     return (
         <nav className="main-nav">

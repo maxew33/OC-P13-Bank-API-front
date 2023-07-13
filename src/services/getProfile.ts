@@ -1,4 +1,5 @@
 import { profileError } from '../reducers/errorReducer'
+import { userIsLogged } from '../reducers/loggedReducer'
 import { getUserProfileInfos } from '../reducers/userProfileReducer'
 import store from '../utils/store'
 
@@ -19,6 +20,8 @@ export default async function getProfile() {
             
             // get user infos
             store.dispatch(getUserProfileInfos(response.body))
+            // the user is looged
+            store.dispatch(userIsLogged())
             // set no token error
             store.getState().error.tokenError && store.dispatch(profileError())
         })

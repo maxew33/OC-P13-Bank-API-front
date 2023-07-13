@@ -37,7 +37,7 @@ function SignIn() {
         setInputData({ ...inputData, rememberMe: rememberMe })
     }
 
-    const isLogged = useSelector((state: RootState) => state.logged)
+    const hadToken = useSelector((state: RootState) => state.logged.hadToken)
 
     const tokenError = useSelector((state: RootState) => state.error.tokenError)
 
@@ -46,8 +46,8 @@ function SignIn() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        isLogged && navigate('/user')
-    }, [navigate, isLogged])
+        hadToken && navigate('/user')
+    }, [navigate, hadToken])
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()

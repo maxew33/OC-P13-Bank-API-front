@@ -3,34 +3,39 @@ import { RootState } from '../utils/store'
 import UserProfile from '../types/userProfile'
 import getProfile from '../services/getProfile'
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import {
-    changeUserFirstName,
-    changeUserLastName,
-} from '../reducers/userProfileReducer'
 import { useNavigate } from 'react-router-dom'
+import updateProfile from '../services/updateProfile'
+import {
+    updateUserFirstName,
+    updateUserLastName,
+} from '../reducers/userProfileReducer'
 
 export default function User() {
-    interface userChangeName {
-        firstName: string
-        lastName: string
-    }
-
-    const [userChangeName, setUserChangeName] = useState<userChangeName>({
-        firstName: '',
-        lastName: '',
-    })
-
     const userName = useSelector(
         (state: RootState) => state.userProfile
     ) as UserProfile
 
+    interface userUpdateName {
+        firstName: string
+        lastName: string
+    }
+
+    const [userUpdateName, setUserUpdateName] = useState<userUpdateName>({
+        firstName: userName.data?.firstName ?? '',
+        lastName: userName.data?.lastName ?? '',
+    })
+
     const navigate = useNavigate()
+
+    const profileError = useSelector(
+        (state: RootState) => state.error.profileError
+    )
     
-    const profileError = useSelector((state: RootState) => state.error.profileError)
+    const logged = useSelector((state: RootState) => state.logged.isLogged)
 
     useEffect(() => {
-        getProfile()
-    }, [])
+        !logged && getProfile()
+    }, [logged])
 
     useEffect(() => {
         profileError && navigate('/sign-in')
@@ -40,18 +45,23 @@ export default function User() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
-        dispatch(changeUserFirstName(userChangeName.firstName))
-        dispatch(changeUserLastName(userChangeName.lastName))
-        
+
+        //updating the store
+        dispatch(updateUserFirstName(userUpdateName.firstName))
+        dispatch(updateUserLastName(userUpdateName.lastName))
+
+        // updating the db
+        updateProfile(userUpdateName.firstName, userUpdateName.lastName)
+
         handleCancel()
     }
 
-    const handleInput = <K extends keyof userChangeName>(
+    const handleInput = <K extends keyof userUpdateName>(
         e: FormEvent,
         id: K
     ) => {
         const target = e.target as HTMLFormElement
-        setUserChangeName({ ...userChangeName, [id]: target.value })
+        setUserUpdateName({ ...userUpdateName, [id]: target.value })
     }
 
     const inputFirstName = useRef<HTMLInputElement>(null)
@@ -61,7 +71,10 @@ export default function User() {
     const handleCancel = () => {
         inputFirstName.current && (inputFirstName.current.value = '')
         inputLastName.current && (inputLastName.current.value = '')
-        setUserChangeName({ firstName: '', lastName: '' })
+        setUserUpdateName({
+            firstName: userName.data?.firstName ?? '',
+            lastName: userName.data?.lastName ?? '',
+        })
     }
 
     return (
@@ -74,7 +87,7 @@ export default function User() {
                             type="text"
                             name="first name"
                             id="firstName"
-                            className='input-field'
+                            className="input-field"
                             ref={inputFirstName}
                             placeholder={userName.data?.firstName}
                             onInput={(e) => handleInput(e, 'firstName')}
@@ -83,7 +96,7 @@ export default function User() {
                             type="text"
                             name="last name"
                             id="lastName"
-                            className='input-field'
+                            className="input-field"
                             ref={inputLastName}
                             placeholder={userName.data?.lastName}
                             onInput={(e) => handleInput(e, 'lastName')}

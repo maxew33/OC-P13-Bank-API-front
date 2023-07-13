@@ -1,5 +1,5 @@
 import { tokenError } from '../reducers/errorReducer'
-import { userIsLogged } from '../reducers/loggedReducer'
+import { userHadToken } from '../reducers/loggedReducer'
 import store from "../utils/store"
 
 export default async function getToken(email: string, password: string) {
@@ -20,8 +20,8 @@ export default async function getToken(email: string, password: string) {
             const { token } = response.body
             localStorage.setItem("token", token)
             
-            // the user is looged
-            store.dispatch(userIsLogged())
+            // the user had token
+            store.dispatch(userHadToken())
 
             // set no token error 
             store.getState().error.tokenError && store.dispatch(tokenError())  
