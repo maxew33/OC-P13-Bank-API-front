@@ -35,6 +35,7 @@ export default function User() {
 
     useEffect(() => {
         !logged && getProfile()
+        console.log(logged ? 'logged out' : 'looged in')
     }, [logged])
 
     useEffect(() => {
@@ -52,9 +53,11 @@ export default function User() {
 
         // updating the db
         updateProfile(userUpdateName.firstName, userUpdateName.lastName)
-
-        handleCancel()
     }
+
+    useEffect(() => {
+        handleCancel()
+    },[userName])
 
     const handleInput = <K extends keyof userUpdateName>(
         e: FormEvent,
@@ -69,6 +72,7 @@ export default function User() {
     const inputLastName = useRef<HTMLInputElement>(null)
 
     const handleCancel = () => {
+        
         inputFirstName.current && (inputFirstName.current.value = '')
         inputLastName.current && (inputLastName.current.value = '')
         setUserUpdateName({
