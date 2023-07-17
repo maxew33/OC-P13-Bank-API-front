@@ -5,7 +5,6 @@ export default async function updateProfile(
     firstName: string,
     lastName: string
 ) {
-    console.log(firstName, lastName)
     const requestOptions = {
         method: 'PUT',
         headers: {

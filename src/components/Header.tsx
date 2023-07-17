@@ -21,8 +21,6 @@ function Header() {
         hadToken && dispatch(userHadToken())
     }
 
-    console.log(logged)
-
     return (
         <nav className="main-nav">
             <NavLink className="main-nav-logo" to={'/'} onClick={handleClick}>

@@ -15,7 +15,6 @@ export default createReducer(initialState, (builder) => {
     builder
         .addCase(getUserProfileInfos, (state, action) => {
             action.payload && (state.data = action.payload)
-            console.log(action, state, state.data)
         })
         .addCase(
             updateUserFirstName,

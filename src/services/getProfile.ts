@@ -4,7 +4,6 @@ import { getUserProfileInfos } from '../reducers/userProfileReducer'
 import store from '../utils/store'
 
 export default async function getProfile() {
-    console.log('getProfile', localStorage.getItem('token'))
     const requestOptions = {
         method: 'POST',
         headers: {
