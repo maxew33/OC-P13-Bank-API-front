@@ -1,5 +1,5 @@
 import { profileError } from '../reducers/errorReducer'
-import store from '../utils/store'
+import store from '../store/store'
 
 export default async function updateProfile(
     firstName: string,

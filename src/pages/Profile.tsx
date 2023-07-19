@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../utils/store'
+import { RootState } from '../store/store'
 import UserProfile from '../types/userProfile'
 import getProfile from '../services/getProfile'
 import { FormEvent, useEffect, useRef, useState } from 'react'
@@ -56,6 +56,7 @@ export default function Profile() {
 
     useEffect(() => {
         handleCancel()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userName])
 
     const handleInput = <K extends keyof userUpdateName>(

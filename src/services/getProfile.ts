@@ -1,7 +1,7 @@
 import { profileError } from '../reducers/errorReducer'
 import { userIsLogged } from '../reducers/loggedReducer'
 import { getUserProfileInfos } from '../reducers/userProfileReducer'
-import store from '../utils/store'
+import store from '../store/store'
 
 export default async function getProfile() {
     const requestOptions = {

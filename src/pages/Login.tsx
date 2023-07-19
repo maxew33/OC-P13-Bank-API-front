@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import getToken from '../services/getToken'
 import { useSelector } from 'react-redux'
-import { RootState } from '../utils/store'
+import { RootState } from '../store/store'
 import { useNavigate } from 'react-router-dom'
 
-function Login() {
+export default function Login() {
     interface dataFormat {
         email: string
         password: string
@@ -17,14 +17,12 @@ function Login() {
         rememberMe: false,
     })
 
-    //En utilisant <K extends keyof dataFormat> comme type générique,
-    //on spécifie que K doit être une clé valide de l'interface dataFormat.
-    //TypeScript peut garantir que la clé id est correcte lors de l'utilisation de newInputData.
-
-    const handleInput = <K extends keyof dataFormat>(e: FormEvent, id: K) => {
+    const handleInput = (e: FormEvent, id: string) => {
         const target = e.target as HTMLFormElement
         setInputData({ ...inputData, [id]: target.value })
     }
+
+    //get the reference of the form fields
 
     const checkbox = useRef<HTMLInputElement>(null)
 
@@ -36,18 +34,6 @@ function Login() {
         const rememberMe = checkbox.current?.checked ?? false
         setInputData({ ...inputData, rememberMe: rememberMe })
     }
-
-    const hadToken = useSelector((state: RootState) => state.logged.hadToken)
-
-    const tokenError = useSelector((state: RootState) => state.error.tokenError)
-
-    const profileError = useSelector((state: RootState) => state.error.profileError)
-
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        hadToken && navigate('/profile')
-    }, [navigate, hadToken])
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
@@ -64,6 +50,18 @@ function Login() {
             rememberMe: false,
         })
     }
+
+    const hadToken = useSelector((state: RootState) => state.logged.hadToken)
+
+    const tokenError = useSelector((state: RootState) => state.error.tokenError)
+
+    const profileError = useSelector((state: RootState) => state.error.profileError)
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        hadToken && navigate('/profile')
+    }, [navigate, hadToken])
 
     return (
         <main className="main bg-dark">
@@ -111,5 +109,3 @@ function Login() {
         </main>
     )
 }
-
-export default Login

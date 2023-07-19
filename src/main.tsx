@@ -9,7 +9,7 @@ import {
 
 // REDUX
 import { Provider } from 'react-redux'
-import store from './utils/store.ts'
+import store from './store/store.ts'
 import Index from './pages/Index.tsx'
 import Error from './pages/Error.tsx'
 
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
             {
-                path: '/',
+                path: '',
                 element: <Index />,
             },
             {

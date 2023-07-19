@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../utils/store'
+import { RootState } from '../store/store'
 import { userHadToken, userIsLogged } from '../reducers/loggedReducer'
 
 import argentBankLogo from '../assets/argentBankLogo.png'
@@ -14,14 +14,15 @@ import {
 
 export default function Header() {
     const logged = useSelector((state: RootState) => state.logged.isLogged)
+    const hadToken = useSelector((state: RootState) => state.logged.hadToken)
     const userName = useSelector((state: RootState) => state.userProfile)
 
     const dispatch = useDispatch()
 
     // sign out actions
     const handleClick = () => {
-        dispatch(userIsLogged())
-        dispatch(userHadToken())
+        logged && dispatch(userIsLogged())
+        hadToken && dispatch(userHadToken())
     }
 
     return (
@@ -35,7 +36,8 @@ export default function Header() {
                 <h1 className="sr-only">Argent Bank</h1>
             </NavLink>
             <div>
-                {/* sign in / sign out buttons */}
+
+                {/* sign in / sign out links */}
                 {logged ? (
                     <>
                         <span className="main-nav-icon">

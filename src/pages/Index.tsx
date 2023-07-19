@@ -2,8 +2,6 @@ import chatIcon from '../assets/icon-chat.png'
 import moneyIcon from '../assets/icon-money.png'
 import securityIcon from '../assets/icon-security.png'
 
-// import '../style/style.css'
-
 export default function Index() {
     return (
         <main>

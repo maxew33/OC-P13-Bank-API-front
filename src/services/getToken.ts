@@ -1,6 +1,6 @@
 import { tokenError } from '../reducers/errorReducer'
 import { userHadToken } from '../reducers/loggedReducer'
-import store from "../utils/store"
+import store from "../store/store"
 
 export default async function getToken(email: string, password: string) {
     const requestOptions = {

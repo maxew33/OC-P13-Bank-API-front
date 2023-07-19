@@ -1,4 +1,4 @@
-import { PayloadAction, createAction, createReducer } from '@reduxjs/toolkit'
+import { createAction, createReducer } from '@reduxjs/toolkit'
 import UserProfile from '../types/userProfile'
 
 const initialState: UserProfile = {
@@ -16,14 +16,11 @@ export default createReducer(initialState, (builder) => {
         .addCase(getUserProfileInfos, (state, action) => {
             action.payload && (state.data = action.payload)
         })
-        .addCase(
-            updateUserFirstName,
-            (state, action: PayloadAction<string>) => {
-                if (state.data && action.payload) {
-                    state.data.firstName = action.payload
-                }
+        .addCase(updateUserFirstName, (state, action) => {
+            if (state.data && action.payload) {
+                state.data.firstName = action.payload
             }
-        )
+        })
         .addCase(updateUserLastName, (state, action) => {
             if (state.data && action.payload) {
                 state.data.lastName = action.payload
