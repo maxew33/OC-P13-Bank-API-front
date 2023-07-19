@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
 import {
-    BrowserRouter,
     RouterProvider,
     createBrowserRouter,
 } from 'react-router-dom'
@@ -12,11 +11,11 @@ import {
 import { Provider } from 'react-redux'
 import store from './utils/store.ts'
 import Index from './pages/Index.tsx'
-import SignIn from './pages/SignIn.tsx'
-import User from './pages/User.tsx'
 import Error from './pages/Error.tsx'
 
 import './style/style.css'
+import Login from './pages/Login.tsx'
+import Profile from './pages/Profile.tsx'
 
 const router = createBrowserRouter([
     {
@@ -25,16 +24,16 @@ const router = createBrowserRouter([
         errorElement: <Error />,
         children: [
             {
-                path: '',
+                path: '/',
                 element: <Index />,
             },
             {
-                path: '/sign-in',
-                element: <SignIn />,
+                path: '/login',
+                element: <Login />,
             },
             {
-                path: '/user',
-                element: <User />,
+                path: '/profile',
+                element: <Profile />,
             },
             {
                 path: '*',

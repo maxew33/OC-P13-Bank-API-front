@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../utils/store'
 import { useNavigate } from 'react-router-dom'
 
-function SignIn() {
+function Login() {
     interface dataFormat {
         email: string
         password: string
@@ -46,7 +46,7 @@ function SignIn() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        hadToken && navigate('/user')
+        hadToken && navigate('/profile')
     }, [navigate, hadToken])
 
     const handleSubmit = (e: FormEvent) => {
@@ -112,4 +112,4 @@ function SignIn() {
     )
 }
 
-export default SignIn
+export default Login

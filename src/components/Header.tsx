@@ -1,4 +1,9 @@
 import { NavLink } from 'react-router-dom'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../utils/store'
+import { userHadToken, userIsLogged } from '../reducers/loggedReducer'
+
 import argentBankLogo from '../assets/argentBankLogo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -6,19 +11,17 @@ import {
     faArrowRightToBracket,
     faCircleUser,
 } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../utils/store'
-import { userHadToken, userIsLogged } from '../reducers/loggedReducer'
 
-function Header() {
+export default function Header() {
     const logged = useSelector((state: RootState) => state.logged.isLogged)
-    const hadToken = useSelector((state: RootState) => state.logged.hadToken)
     const userName = useSelector((state: RootState) => state.userProfile)
+
     const dispatch = useDispatch()
 
+    // sign out actions
     const handleClick = () => {
-        logged && dispatch(userIsLogged())
-        hadToken && dispatch(userHadToken())
+        dispatch(userIsLogged())
+        dispatch(userHadToken())
     }
 
     return (
@@ -32,41 +35,40 @@ function Header() {
                 <h1 className="sr-only">Argent Bank</h1>
             </NavLink>
             <div>
-                {logged && (
+                {/* sign in / sign out buttons */}
+                {logged ? (
                     <>
                         <span className="main-nav-icon">
                             <FontAwesomeIcon icon={faCircleUser} />
                         </span>
 
                         {userName.data?.firstName}
-                    </>
-                )}
-                <NavLink
-                    className="main-nav-item"
-                    to={'/sign-in'}
-                    onClick={handleClick}
-                >
-                    {logged ? (
-                        <>
+
+                        <NavLink
+                            className="main-nav-item"
+                            to="/"
+                            onClick={handleClick}
+                        >
                             <span className="main-nav-icon">
                                 <FontAwesomeIcon
                                     icon={faArrowRightFromBracket}
                                 />
                             </span>
                             sign out
-                        </>
-                    ) : (
-                        <>
-                            <span className="main-nav-icon">
-                                <FontAwesomeIcon icon={faArrowRightToBracket} />
-                            </span>
-                            sign in
-                        </>
-                    )}
-                </NavLink>
+                        </NavLink>
+                    </>
+                ) : (
+                    <NavLink
+                        className="main-nav-item"
+                        to="/login"
+                    >
+                        <span className="main-nav-icon">
+                            <FontAwesomeIcon icon={faArrowRightToBracket} />
+                        </span>
+                        sign in
+                    </NavLink>
+                )}
             </div>
         </nav>
     )
 }
-
-export default Header

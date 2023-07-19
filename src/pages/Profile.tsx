@@ -10,7 +10,7 @@ import {
     updateUserLastName,
 } from '../reducers/userProfileReducer'
 
-export default function User() {
+export default function Profile() {
     const userName = useSelector(
         (state: RootState) => state.userProfile
     ) as UserProfile
