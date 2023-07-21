@@ -259,8 +259,6 @@ body{
     flex: 1;
 }
 
-
-
 .edit-name-form{
     display: flex;
     flex-direction: column;
@@ -366,4 +364,26 @@ button{
     color: #e2e2e2;
     text-transform: capitalize;
     font-size: 1rem;
+}
+
+@media (max-width: 500px) {
+    .edit-name-wrapper{
+        flex-direction: column;
+    }
+
+    .main-nav{
+        font-size:1rem;
+    }
+
+    .main-nav-logo-image{
+        width: 100px;
+    }
+
+    .main-nav-item{
+        margin:0;
+    }
+
+    .main-nav-icon{
+        margin: 0 .5rem 0 1rem;
+    }
 }
