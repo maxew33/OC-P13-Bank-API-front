@@ -9,6 +9,7 @@ const initialState: UserProfile = {
 export const getUserProfileInfos = createAction('getUserProfileInfos')
 export const updateUserFirstName = createAction<string>('updateUserFirstName')
 export const updateUserLastName = createAction<string>('updateUserLastName')
+export const resetProfile =  createAction('resetUserProfileInfos')
 
 //the reducer
 export default createReducer(initialState, (builder) => {
@@ -25,5 +26,8 @@ export default createReducer(initialState, (builder) => {
             if (state.data && action.payload) {
                 state.data.lastName = action.payload
             }
+        })
+        .addCase(resetProfile, (state, action) => {
+            state.data = initialState.data
         })
 })

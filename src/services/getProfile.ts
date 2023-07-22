@@ -23,6 +23,8 @@ export default async function getProfile() {
             store.dispatch(userIsLogged())
             // set no token error
             store.getState().error.tokenError && store.dispatch(profileError())
+
+            response.status >= 400 && store.dispatch(profileError())
         })
         .catch(() => {
             console.error('Error in get profile')

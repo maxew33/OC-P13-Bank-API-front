@@ -30,7 +30,7 @@ export default function Profile() {
     const profileError = useSelector(
         (state: RootState) => state.error.profileError
     )
-    
+
     const logged = useSelector((state: RootState) => state.logged.isLogged)
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function Profile() {
     }, [logged])
 
     useEffect(() => {
-        profileError && navigate('/sign-in')
+        profileError && navigate('/login')
     }, [navigate, profileError])
 
     const dispatch = useDispatch()
@@ -56,8 +56,8 @@ export default function Profile() {
 
     useEffect(() => {
         handleCancel()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[userName])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userName])
 
     const handleInput = <K extends keyof userUpdateName>(
         e: FormEvent,
@@ -72,7 +72,6 @@ export default function Profile() {
     const inputLastName = useRef<HTMLInputElement>(null)
 
     const handleCancel = () => {
-
         inputFirstName.current && (inputFirstName.current.value = '')
         inputLastName.current && (inputLastName.current.value = '')
         setUserUpdateName({
@@ -83,88 +82,98 @@ export default function Profile() {
 
     return (
         <main className="main bg-dark">
-            <div className="header">
-                Welcome Back
-                <form onSubmit={handleSubmit} className="edit-name-form">
-                    <div className="edit-name-wrapper">
-                        <input
-                            type="text"
-                            name="first name"
-                            id="firstName"
-                            className="input-field"
-                            ref={inputFirstName}
-                            placeholder={userName.data?.firstName}
-                            onInput={(e) => handleInput(e, 'firstName')}
-                        />
-                        <input
-                            type="text"
-                            name="last name"
-                            id="lastName"
-                            className="input-field"
-                            ref={inputLastName}
-                            placeholder={userName.data?.lastName}
-                            onInput={(e) => handleInput(e, 'lastName')}
-                        />
+            {logged && (
+                <>
+                    <div className="header">
+                        Welcome Back
+                        <form
+                            onSubmit={handleSubmit}
+                            className="edit-name-form"
+                        >
+                            <div className="edit-name-wrapper">
+                                <input
+                                    type="text"
+                                    name="first name"
+                                    id="firstName"
+                                    className="input-field"
+                                    ref={inputFirstName}
+                                    placeholder={userName.data?.firstName}
+                                    onInput={(e) => handleInput(e, 'firstName')}
+                                />
+                                <input
+                                    type="text"
+                                    name="last name"
+                                    id="lastName"
+                                    className="input-field"
+                                    ref={inputLastName}
+                                    placeholder={userName.data?.lastName}
+                                    onInput={(e) => handleInput(e, 'lastName')}
+                                />
+                            </div>
+                            <div className="edit-name-wrapper">
+                                <button type="submit" className="edit-button">
+                                    Save
+                                </button>
+                                <button
+                                    className="edit-button"
+                                    onClick={handleCancel}
+                                >
+                                    cancel
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div className="edit-name-wrapper">
-                        <button type="submit" className="edit-button">
-                            Save
-                        </button>
-                        <button className="edit-button" onClick={handleCancel}>
-                            cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <h2 className="sr-only">Accounts</h2>
-            <section className="account">
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">
-                        Argent Bank Checking (x8349)
-                    </h3>
-                    <p className="account-amount">$2,082.79</p>
-                    <p className="account-amount-description">
-                        Available Balance
-                    </p>
-                </div>
-                <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
-                        View transactions
-                    </button>
-                </div>
-            </section>
-            <section className="account">
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">
-                        Argent Bank Savings (x6712)
-                    </h3>
-                    <p className="account-amount">$10,928.42</p>
-                    <p className="account-amount-description">
-                        Available Balance
-                    </p>
-                </div>
-                <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
-                        View transactions
-                    </button>
-                </div>
-            </section>
-            <section className="account">
-                <div className="account-content-wrapper">
-                    <h3 className="account-title">
-                        Argent Bank Credit Card (x8349)
-                    </h3>
-                    <p className="account-amount">$184.30</p>
-                    <p className="account-amount-description">
-                        Current Balance
-                    </p>
-                </div>
-                <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
-                        View transactions
-                    </button>
-                </div>
-            </section>
+                    <h2 className="sr-only">Accounts</h2>
+                    <section className="account">
+                        <div className="account-content-wrapper">
+                            <h3 className="account-title">
+                                Argent Bank Checking (x8349)
+                            </h3>
+                            <p className="account-amount">$2,082.79</p>
+                            <p className="account-amount-description">
+                                Available Balance
+                            </p>
+                        </div>
+                        <div className="account-content-wrapper cta">
+                            <button className="transaction-button">
+                                View transactions
+                            </button>
+                        </div>
+                    </section>
+                    <section className="account">
+                        <div className="account-content-wrapper">
+                            <h3 className="account-title">
+                                Argent Bank Savings (x6712)
+                            </h3>
+                            <p className="account-amount">$10,928.42</p>
+                            <p className="account-amount-description">
+                                Available Balance
+                            </p>
+                        </div>
+                        <div className="account-content-wrapper cta">
+                            <button className="transaction-button">
+                                View transactions
+                            </button>
+                        </div>
+                    </section>
+                    <section className="account">
+                        <div className="account-content-wrapper">
+                            <h3 className="account-title">
+                                Argent Bank Credit Card (x8349)
+                            </h3>
+                            <p className="account-amount">$184.30</p>
+                            <p className="account-amount-description">
+                                Current Balance
+                            </p>
+                        </div>
+                        <div className="account-content-wrapper cta">
+                            <button className="transaction-button">
+                                View transactions
+                            </button>
+                        </div>
+                    </section>
+                </>
+            )}
         </main>
     )
 }

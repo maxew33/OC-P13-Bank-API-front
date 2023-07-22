@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store/store'
@@ -11,6 +11,7 @@ import {
     faArrowRightToBracket,
     faCircleUser,
 } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react'
 
 export default function Header() {
     const logged = useSelector((state: RootState) => state.logged.isLogged)
@@ -23,7 +24,15 @@ export default function Header() {
     const handleClick = () => {
         logged && dispatch(userIsLogged())
         hadToken && dispatch(userHadToken())
+
+        localStorage.removeItem('token')
     }
+
+    const navigate = useNavigate()
+
+    useEffect(()=>{
+        !hadToken && navigate('/')
+    },[hadToken, navigate])
 
     return (
         <nav className="main-nav">
